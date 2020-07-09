@@ -1,0 +1,11 @@
+{
+  "name": "color-me-up-backend",
+  "version": "0.0.1",
+  "description": "(Backend) project made as part of the hiring process for EverReal.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT"
+}
