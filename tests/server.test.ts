@@ -2,7 +2,7 @@ import http from "http";
 
 import request from "supertest";
 
-import { Board } from "color-me-up-shared";
+import { Board, Color } from "color-me-up-shared";
 
 import { createServer } from "../src/server";
 
@@ -63,6 +63,36 @@ describe("Color me up backend", () => {
             expect(response.body).toEqual({
                 reason: "Invalid params",
                 params: { size: "-12", numberOfColors: "false" },
+            });
+        });
+    });
+
+    describe("POST /aiPlay", () => {
+        it("Returns a series of colors to play the game", async () => {
+            const board: Board = (await request(app).get("/api/start")).body;
+
+            const response = await request(app)
+                .post("/api/aiPlay")
+                .send({ board });
+
+            expect(response.status).toBe(200);
+
+            const colors: Color[] = response.body;
+
+            expect(Array.isArray(colors)).toBe(true);
+            expect(colors.length).toBeGreaterThan(0);
+        });
+
+        it("Returns 400 when board is invalid", async () => {
+            const response = await request(app)
+                .post("/api/aiPlay")
+                .send({ board: { colors: [], tiles: "" } });
+
+            expect(response.status).toBe(400);
+
+            expect(response.body).toEqual({
+                reason: "Invalid params",
+                params: { board: { colors: [], tiles: "" } },
             });
         });
     });
