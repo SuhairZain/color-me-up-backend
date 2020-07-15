@@ -27,6 +27,7 @@
     "typescript": "3.9.6"
   },
   "dependencies": {
+    "color-me-up-shared": "https://github.com/SuhairZain/color-me-up-shared.git",
     "express": "4.17.1"
   }
 }
